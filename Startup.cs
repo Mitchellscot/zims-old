@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using zims.Data.Repositories.Users;
+using zims.Helpers;
 
 namespace zims
 {
@@ -19,8 +21,13 @@ namespace zims
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors();
             services.AddControllersWithViews();
+
+            // configure strongly typed settings object
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            services.AddScoped<IUserRepository, UserRepository>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -45,6 +52,15 @@ namespace zims
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+            // custom jwt auth middleware
+            app.UseMiddleware<JwtMiddleware>();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
