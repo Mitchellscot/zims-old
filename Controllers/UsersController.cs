@@ -49,22 +49,25 @@ namespace zims.Controllers
             return Ok(users);
         }
         //             figuring this one out
-        //[Authorize]
-        //[HttpGet("{name}")]
-        //public IActionResult GetUserInfo(string name)
-        //{
-        //    var user = (User)context.HttpContext.Items["User"];
-        //    _logger.LogInformation("you are a user");
-        //    if (!User.IsInRole(Role.Admin))
-        //        return Forbid();
-        //    var currentUserId = int.Parse(User.Identity.Name);
-        //    var user = _userRepository.GetById(id);
+        [Authorize]
+        [HttpGet("name/{name}")]
+        public IActionResult GetUserInfo(string name)
+        {
+            var user = _userRepository.GetByName(name);
+            if (!User.IsInRole(Role.Admin)) {
+                _logger.LogInformation("you are a user");
+                return Ok(user);
+            }
+            if (!User.IsInRole(Role.User))
+            {
+                _logger.LogInformation("you are a admin");
+                return Ok(user);
+            }
 
-        //    if (user == null)
-        //        return NotFound();
-
-        //    return Ok(user);
-        //}
+            if (user == null)
+                return NotFound();
+            return Ok(user);
+        }
 
         [HttpGet("{id}")]
         [Authorize(Roles = Role.User)]

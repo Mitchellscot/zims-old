@@ -42,10 +42,6 @@ namespace zims.Data.Repositories.Users
             return _users;
         }
 
-        public User GetById(int id)
-        {
-            return _users.FirstOrDefault(x => x.Id == id);
-        }
         private string generateJwtToken(User user)
         {
             // generate token that is valid for 7 days
@@ -64,6 +60,14 @@ namespace zims.Data.Repositories.Users
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+        public User GetById(int id)
+        {
+            return _users.FirstOrDefault(x => x.Id == id);
+        }
+        public User GetByName(string name)
+        {
+            return _users.FirstOrDefault(x => x.Username == name);
         }
     }
 }
