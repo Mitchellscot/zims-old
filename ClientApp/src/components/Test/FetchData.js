@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function FetchData() {
-    const [forecasts, setForecasts] = useState([]);
+    const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
+    const weather = useSelector(store => store.weather)
+    const loadingMessage = <h1>Loading....</h1>;
 
-    const loadingMessage = <h1>Loading</h1>;
+    //if (weather) {
+    //    setLoading(false)
+    //}
 
     useEffect(() => {
-        axios.get('WeatherForecast')
-            .then(result => setForecasts(result.data));
-    }, []);
+        dispatch({ type: 'FETCH_WEATHER' })
+    }, [dispatch]);
 
     return (
+
         <>
             <div>
                 <h1 id="tabelLabel" >Weather forecast</h1>
@@ -28,12 +34,12 @@ export default function FetchData() {
                     </tr>
                 </thead>
                 <tbody>
-                    {forecasts ? forecasts.map(forecast =>
-                        <tr key={forecast.date}>
-                            <td>{forecast.date}</td>
-                            <td>{forecast.temperatureC}</td>
-                            <td>{forecast.temperatureF}</td>
-                            <td>{forecast.summary}</td>
+                    {loading ? weather.map(weather =>
+                        <tr key={weather.date}>
+                            <td>{weather.date}</td>
+                            <td>{weather.temperatureC}</td>
+                            <td>{weather.temperatureF}</td>
+                            <td>{weather.summary}</td>
                         </tr>
                     ) : loadingMessage}
                 </tbody>
