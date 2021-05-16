@@ -55,7 +55,7 @@ namespace zims
 
             // global cors policy
             app.UseCors(x => x
-                .AllowAnyOrigin()
+                .WithOrigins("http://localhost:3000")
                 .AllowAnyMethod()
                 .AllowAnyHeader());
             // custom jwt auth middleware
@@ -75,7 +75,8 @@ namespace zims
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
+                    //spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
         }

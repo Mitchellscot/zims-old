@@ -48,7 +48,6 @@ namespace zims.Controllers
             var users = _userRepository.GetAll();
             return Ok(users);
         }
-        //             figuring this one out
         [Authorize]
         [HttpGet("name/{name}")]
         public IActionResult GetUserInfo(string name)
@@ -74,7 +73,6 @@ namespace zims.Controllers
         public IActionResult GetById(int id)
         {
             // only allow admins to access other user records
-            //var currentUser = User.Identity.Name;
             if (!User.IsInRole(Role.Admin))
                 return Forbid();
 
