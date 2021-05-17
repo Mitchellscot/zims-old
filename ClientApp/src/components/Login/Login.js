@@ -13,7 +13,6 @@ export default function Login() {
     const location = useLocation();
     //const loggingIn = useSelector(state => state.authentication.loggingIn); or something like that
 
-
     useEffect(() => {
         dispatch({type: 'LOG_OUT'});
     }, []);

@@ -1,4 +1,4 @@
-﻿const weatherForecastReducer = (state = [], action) => {
+﻿const weatherForecast = (state = [], action) => {
     switch (action.type) {
         case 'SET_WEATHER':
             return action.payload;
@@ -9,4 +9,4 @@
     }
 }
 
-export default weatherForecastReducer;
+export default weatherForecast;
