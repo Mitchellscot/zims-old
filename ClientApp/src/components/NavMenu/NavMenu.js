@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
 export default function NavMenu() {
-    /*     const [navbar, setNavbar] = React.useState(false);
-     *//*     const toggleNavbar = () => {
-           setNavbar(!navbar);
-       } */
 
     return (
         <header>
