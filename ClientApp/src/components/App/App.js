@@ -1,10 +1,15 @@
 import React from 'react';
-import { Route } from 'react-router';
 import { Layout } from '../Layout/Layout';
 import Home from '../Home/Home';
 import FetchData from '../Test/FetchData';
 import Counter from '../Test/Counter';
 import Login from '../Login/Login';
+import {
+    Router,
+    Route,
+    Redirect,
+    Switch,
+  } from 'react-router-dom';
 // dark mode
 //import "bootswatch/dist/darkly/bootstrap.min.css";
 // light mode
