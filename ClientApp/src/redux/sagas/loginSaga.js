@@ -11,7 +11,7 @@ function* loginUser(action){
           yield axios.post('/users/authenticate', action.payload, config).then(response => {
                   localStorage.setItem('user', JSON.stringify(response.data));
               });
-              yield put({type: 'LOGIN_SUCCESS', payload: user});
+              yield put({type: 'LOGIN_SUCCESS'});
     } catch (error) {
         console.log('HEY MITCH - ERROR LOGGING IN', error);
         if (error.response.status === 401){

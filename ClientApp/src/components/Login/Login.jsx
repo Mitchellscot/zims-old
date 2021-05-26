@@ -1,6 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import './Login.css';
 
 export default function Login() {
@@ -11,8 +10,7 @@ export default function Login() {
     const [submitted, setSubmitted] = useState(false);
     const { username, password } = inputs;
     const dispatch = useDispatch();
-    const location = useLocation();
-    //const loggingIn = useSelector(state => state.authentication.loggingIn); or something like that
+
 
     useEffect(() => {
         //dispatch({type: 'LOG_OUT'});
@@ -39,6 +37,11 @@ export default function Login() {
         }
     }
 
+    //for testing purposes, delete when you know logout works
+    const logout = () => {
+        dispatch({type: 'LOGOUT'})
+    }
+
     return (
         <div className="container">
         <div className="col-md-8 offset-md-2 mt-5">
@@ -56,12 +59,15 @@ export default function Login() {
                     {submitted && !password && <div className="invalid-feedback">Password is required</div>}
                 </div>
                 </div>
-                <div className="form-group d-flex justify-content-between mt-3">
+                <div >
                     <button className="btn btn-primary btn" type="submit" name="submit">
                     {/*loggingIn && <span className="spinner-border spinner-border-sm mr-1"></span>*/}
                         Login
                     </button>
-                    <button 
+
+                    <button className="btn btn-primary btn" type="button" onClick={logout}>Log out</button>
+
+                    <button
                     onClick={(e) => alert("too bad")}
                     id="forgotPassword" type="button" className="btn btn-link btn">Forgot password?</button>
                 </div>
